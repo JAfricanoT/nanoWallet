@@ -1,5 +1,7 @@
+# Almacena todas las cuentas activas en la aplicacion (TempDB)
 cuentas = {}
 
+# Creacion de la clase cuenta
 class Cuenta:
     siguientenumerocuenta = 1
 
@@ -16,25 +18,31 @@ class Cuenta:
         b = "{:0>3}".format(self.balance)
         return "Cuenta(numero={:0>4}, balance={}.{})".format(self.numero, b[:-2], b[-2:])
 
+    # Metodo que aumenta el balance de la cuenta
     def depositar(self, monto: int):
         self.balance += monto
 
+    # Metodo que disminuye el balance de la cuenta
     def retirar(self, monto: int):
         self.balance -= monto
 
+    # Metodo que transfiere el monto de una cuenta a otra
     def transferir_a(self, otra, monto: int):
         self.retirar(monto)
         otra.depositar(monto)
 
-
+# Formatea el mensaje para que incluya '!!!' al inicio de un error
 def print_err(*m):
     print("!!!", *m)
 
+# Formatea el mensaje para que incluya '>' al inicio
 def print_info(*m):
     print(">  ", *m)
 
+# Formatea el mensaje para que incluya ':' al inicio de un titulo
 def print_title(*m):
     print(":", *m)
+
 
 def input_monto(p: str):
     while True:
@@ -113,7 +121,7 @@ def depositar():
     print_info("Operacion realizada con éxito")
     print_info(cuenta)
 
-
+# Callback de la opcion 4, que recibe los datos de remitente, receptor y monto para realizar una transferencia entre cuenta.
 def transferir():
     remitente = input_cuenta("Indique el número de la cuenta de la que saldrá el dinero")
     print_info(remitente)
@@ -133,19 +141,21 @@ def transferir():
     print_info("Remitente", remitente)
     print_info("Receptor", receptor)
 
-
+# Funcion que lista todas las cuentas
 def listarcuentas():
     for nro, c in cuentas.items():
         print_info(c)
 
-
+# Cuentas predeterminadas
 c = Cuenta(100000)
 cuentas[c.numero] = c
 
 c = Cuenta(25000)
 cuentas[c.numero] = c
 
+# Menu
 if __name__ == '__main__':
+    # Lista de opciones del menu junto al callback de cada opcion
     opciones = [
         ["Mostrar la cuentas en el sistema", listarcuentas],
         ["Aperutar una cuenta", abrircuenta],
@@ -154,19 +164,23 @@ if __name__ == '__main__':
         ["Realizar una transferencia entre cuentas", transferir],
     ]
 
+    # Ciclo que activa el menu.
     while True:
         print_title("Menú")
 
+        #Imprime en la consola las opciones
         for i, par in enumerate(opciones):
             texto, callback = par
             print("   [{}]".format(i), texto)
 
+        # Captura la opcion escrita por el cliente
         opcion = input_int("Seleccione una opción")
         
+        # Selecciona la opcion escogida por el cliente
         if opcion > -1 and opcion < len(opciones):
             texto, callback = opciones[opcion]
-
             callback()
+        # Arroja el error en caso que se escriba una opcion que no esta disponoble
         else:
             print_err(opcion, "no está en el menú")
         print()
