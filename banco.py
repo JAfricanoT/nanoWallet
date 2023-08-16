@@ -24,7 +24,7 @@ class Cuenta:
 
     def transferir_a(self, otra, monto: int):
         self.retirar(monto)
-        self.depositar(monto)
+        otra.depositar(monto)
 
 
 def print_err(*m):
@@ -53,7 +53,6 @@ def input_monto(p: str):
         except ValueError:
             print_err(s, "no es un valor numérico")
 
-
 def input_int(p: str):
     while True:
         try:
@@ -77,10 +76,6 @@ def input_cuenta(p: str):
             print_err("La cuenta", nrocuenta, "no está registrada")
         except ValueError:
             print_err(s, "no es un valor numérico")
-
-        return int(partes[0] + "{:0>2}".format(partes[1]))
-        
-
 
 def abrircuenta():
     balance = input_monto("Indique el balance inicial de la cuenta")
@@ -121,9 +116,9 @@ def depositar():
 
 def transferir():
     remitente = input_cuenta("Indique el número de la cuenta de la que saldrá el dinero")
-    monto = input_monto("Indique el monto a transferir")
-
     print_info(remitente)
+
+    monto = input_monto("Indique el monto a transferir")
     
     if monto > remitente.balance:
         print_err("El monto es mayor al valance actual de la cuenta")
