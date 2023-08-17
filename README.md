@@ -16,3 +16,19 @@ Para operar es tan sencillo como escribir el numero de la opción que desea ejec
 ### Mostrar la cuentas en el sistema
 
 Se listan todas las cuentas activas en el sistema visualizandose junte a ellas su identificardor unico y el balance.
+
+### Aperutar una cuenta
+
+Solicita el monto inicial de la cuenta que se desea aperturar.
+
+### Realizar un depósito
+
+Solicita el numero de cuenta del receptor y el monto que se desea depositar.
+
+### Realizar un retiro
+
+Solicita el numero de cuenta del remitente y el monto que se desea retirar.
+
+### Realizar una transferencia entre cuentas
+
+Solicita el numero de cuenta del remitente, el monto que se desa depositar y el numero de cuenta del receptor.
