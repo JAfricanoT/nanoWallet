@@ -1,10 +1,11 @@
-# Almacena todas las cuentas activas en la aplicacion (TempDB)
+# Almacena todas las cuentas activas en la aplicacion (tempDB)
 cuentas = {}
 
 # Creacion de la clase cuenta
 class Cuenta:
     siguientenumerocuenta = 1
 
+    # Constuctor de los objetos de la clase cuenta
     def __init__(self, balance_inicial: int = -1):
         if balance_inicial < 100:
             raise Error("No puede abrir una cuenta con saldo menor a 1.00")
@@ -14,6 +15,7 @@ class Cuenta:
 
         self.balance = balance_inicial
 
+    # Devuelve le informacion del objeto de forma legible
     def __str__(self):
         b = "{:0>3}".format(self.balance)
         return "Cuenta(numero={:0>4}, balance={}.{})".format(self.numero, b[:-2], b[-2:])
@@ -43,100 +45,137 @@ def print_info(*m):
 def print_title(*m):
     print(":", *m)
 
-
+# Funcion que recibe un texto que se va a mostrar en la terminal, captura el monto escrito por el cliente y devuelve el resultado.
 def input_monto(p: str):
     while True:
         try:
+            # Imprime en la terminal el mensaje recibido como parametro y se mantiene escuchando para capturar el teclado
             s = input(p + ": ").strip()
             # Probamos que el número sea interpretable. No hace falta más del número
             float(s)
 
+            # Se quita el punto decimal para trabajarlo como un entero
             partes = s.split(".")
 
+            # Se verifica que el numero ingresado no contiene decimales
             if len(partes) == 1:
                 return int(partes[0] + "00")
             
+            # Se retorna el numero que paso de decimal a entero
             return int(partes[0] + "{:0>2}".format(partes[1]))
         
         except ValueError:
+            # Gestion de error en caso que no sea valor numerico
             print_err(s, "no es un valor numérico")
 
+# Funcion que recibe un texto que se va a mostrar en la terminal, captura un numero del cliente y devuelve el resultado.
 def input_int(p: str):
     while True:
         try:
+            # Imprime en la terminal el mensaje recibido como parametro y se mantiene escuchando para capturar el teclado
             s = input(p + ": ").strip()
             
+            # Retorna el entero recibido
             return int(s)
-        
         except ValueError:
+            # Gestion de error en caso que no sea valor numerico
             return -1
 
+# Funcion que recibe un texto que se va a mostrar en la terminal, captura el numero de cuenta escrito por el cliente y devuelve el resultado.
 def input_cuenta(p: str):
     while True:
         try:
+            # Imprime en la terminal el mensaje recibido como parametro y se mantiene escuchando para capturar el teclado
             s = input(p + ": ").strip()
             
+            # Asigna el numero recibido a la variable nrocuenta
             nrocuenta = int(s)
 
+            # Verifica que el numero de cuenta exista en la tempDB
             if nrocuenta in cuentas:
                 return cuentas[nrocuenta]
 
+            # Arroja el error de 'Cuenta no registrada' si no la consigue en la tem db
             print_err("La cuenta", nrocuenta, "no está registrada")
         except ValueError:
+            # Gestion de error en caso que no sea valor numerico
             print_err(s, "no es un valor numérico")
 
+# Callback de la opcion 1, que recibe los datos del monto con el que se va a aperturar la cuenta.
 def abrircuenta():
+    # Captura el monto que se desea depositar en la apertura de la cuenta.
     balance = input_monto("Indique el balance inicial de la cuenta")
+
+    # Crea un nuevo objeto de la clase Cuenta con el balence inicial capturado anteriormente
     c = Cuenta(balance)
+
+    # Se agrega la cuenta a la tempDB
     cuentas[c.numero] = c
 
+    # Detalla el estado de la operacion y el balance de la cuenta relacionada.
     print_info("Nueva cuenta creada:", c)
 
     return c
 
+# Callback de la opcion 2, que recibe los datos del receptor y monto para realizar un deposito en la cuenta.
+def depositar():
+    # Captura el numero que se desea como receptor y devuelve el objeto de la cuenta.
+    cuenta = input_cuenta("Indique el número de la cuenta en la que desea realizar depositar")
+    print_info(cuenta)
+    
+    # Captura el monto que se desea retirar.
+    monto = input_monto("Indique el monto a depositar")
 
+    # Llamada al metodo que realiza el deposito de la cuenta
+    cuenta.depositar(monto)
+
+    # Detalla el estado de la operacion y el balance de la cuenta relacionada.
+    print_info("Operacion realizada con éxito")
+    print_info(cuenta)
+
+# Callback de la opcion 3, que recibe los datos del remitente y monto para realizar el retiro de la cuenta.
 def retirar():
+    # Captura el numero que se desea como remitente y devuelve el objeto de la cuenta.
     cuenta = input_cuenta("Indique el número de la cuenta de la que desea realizar el retiro")
     print_info(cuenta)
     
+    # Captura el monto que se desea retirar.
     monto = input_monto("Indique el monto a retirar")
 
+    # Verifica que el monto que se desea retirar esta disponible en el balance del remitente
     if monto > cuenta.balance:
         print_err("El monto es mayor al balance actual de la cuenta")
         return
 
+    # Llamada al metodo que realiza el retiro de la cuenta
     cuenta.retirar(monto)
 
-    print_info("Operacion realizada con éxito")
-    print_info(cuenta)
-
-
-def depositar():
-    cuenta = input_cuenta("Indique el número de la cuenta en la que desea realizar depositar")
-    print_info(cuenta)
-    
-    monto = input_monto("Indique el monto a depositar")
-    cuenta.depositar(monto)
-
+    # Detalla el estado de la operacion y el balance de la cuenta relacionada.
     print_info("Operacion realizada con éxito")
     print_info(cuenta)
 
 # Callback de la opcion 4, que recibe los datos de remitente, receptor y monto para realizar una transferencia entre cuenta.
 def transferir():
+    # Captura el numero que se desea como remitente y devuelve el objeto de la cuenta.
     remitente = input_cuenta("Indique el número de la cuenta de la que saldrá el dinero")
     print_info(remitente)
 
+    # Captura el monto que se desea transferir.
     monto = input_monto("Indique el monto a transferir")
     
+    # Verifica que el monto que se desea transferir esta disponible en el balance del remitente
     if monto > remitente.balance:
         print_err("El monto es mayor al valance actual de la cuenta")
         return
 
+    # Captura el numero que se desea como receptor y devuelve el objeto de la cuenta.
     receptor = input_cuenta("Indique el número de la cuenta que recibirá el dinero")
     print_info(receptor)
     
+    # Llamada al metodo que realiza la transferencia entre las cuentas
     remitente.transferir_a(receptor, monto)
 
+    # Detalla el estado de la operacion y el balance de las cuentas relacionadas.
     print_info("Operacion realizada con éxito")
     print_info("Remitente", remitente)
     print_info("Receptor", receptor)
