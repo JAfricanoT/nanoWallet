@@ -8,7 +8,7 @@ class Cuenta:
     # Constuctor de los objetos de la clase cuenta
     def __init__(self, balance_inicial: int = -1):
         if balance_inicial < 100:
-            raise Error("No puede abrir una cuenta con saldo menor a 1.00")
+            raise ValueError("No puede abrir una cuenta con saldo menor a 1.00")
 
         self.numero = Cuenta.siguientenumerocuenta
         Cuenta.siguientenumerocuenta += 1

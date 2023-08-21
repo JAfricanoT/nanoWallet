@@ -32,3 +32,17 @@ Solicita el numero de cuenta del remitente y el monto que se desea retirar.
 ### Realizar una transferencia entre cuentas
 
 Solicita el numero de cuenta del remitente, el monto que se desa depositar y el numero de cuenta del receptor.
+
+## Diseño 
+
+### Integridad
+
+Se utiliza la programacion orientada a objetos para poder conservar la integridad de los datos por medio del encapsulamiento de las cuentas.
+
+### Gestion de Datos
+
+La manipulacion de datos se realizo llevando los decimales a cantidades enteras de centavos para evitar errores de redondeo.
+
+### Transacciones
+
+Cada una de las operaciones que puede realizar el usuario esta encapsulada en una fucion que perte que se simplifique el flujo de la informacion y facilita el refactoring del codigo.
