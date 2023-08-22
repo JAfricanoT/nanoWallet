@@ -23,7 +23,7 @@ def esta_ci_registrada(ci: int):
 
 def format_centavos(monto: int) -> str:
     """
-    Verifica si una C.I. está registrada.
+    Formatea el monto ingresado de centavos a enteros.
     
     :param monto: El monto en centavos.
     """
@@ -352,10 +352,10 @@ def listarcuentas():
 
 
 # Cuentas predeterminadas
-c = Cuenta("Gustavo Lopez", 1, "its over anakin", 100000)
+c = Cuenta("Gustavo Lopez", 20000001, "its over anakin", 100000)
 cuentas[c.numero] = c
 
-c = Cuenta("Josefrancisco Africano", 2, "i have the high ground", 100000)
+c = Cuenta("Josefrancisco Africano", 20000002, "i have the high ground", 100000)
 cuentas[c.numero] = c
 
 # Menu
