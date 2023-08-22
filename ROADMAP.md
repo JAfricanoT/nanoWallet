@@ -2,6 +2,7 @@
 
 - [ ] Documentación para programadores
 - [ ] Detallar en la documentación del cliente todos los pasos para el uso de la aplicación, advertencias, posibles errores.
+- [ ] Verificar que solo se ingresen montos positivos.
 
 ## Completados
 
