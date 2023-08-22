@@ -2,6 +2,12 @@
 
 Es un proyecto de prueba con objetivo de manipular valores numericos con alta presicion.
 
+> Desaroollado por:
+> - Joséfrancisco Africano | [@JAfricanoT](https://github.com/JAfricanoT)
+> - Gustavo López | [@gusaln](https://github.com/gusaln)
+> - Claudia Medina 
+> - Manuel Arenas 
+
 ## Usos
 
 La nanoWallet cuenta con un menu con las siguientes operaciones:
