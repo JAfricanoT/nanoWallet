@@ -2,13 +2,6 @@
 
 Es un proyecto de prueba con objetivo de manipular valores numéricos con alta precisión.
 
-> Desarollado por:
->
-> - Joséfrancisco Africano | [@JAfricanoT](https://github.com/JAfricanoT)
-> - Gustavo López | [@gusaln](https://github.com/gusaln)
-> - Claudia Medina
-> - Manuel Arenas
-
 ## Usos
 
 La nanoWallet cuenta diferentes operaciones dependiendo que dependen de si el usuario ha iniciado una sesión o no.
