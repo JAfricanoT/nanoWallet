@@ -16,4 +16,4 @@ Gustavo López [<@gusaln>](https://github.com/gusaln)
 
 Claudia Medina [<@claukmg>](https://github.com/claukmg)
 
-Manuel Arenas
+Manuel Arenas [<@334mnuel>](https://github.com/334mnuel)
